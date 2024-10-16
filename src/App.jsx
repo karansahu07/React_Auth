@@ -2,20 +2,36 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import NotFound from './components/NotFound'; 
+import NotFound from './components/NotFound';
+import PrivateRoute from './routes/Privateroute';
+import PublicRoute from './routes/Publicroute';
 
 function App() {
-  // Get the email from localStorage
-  const email = localStorage.getItem('userEmail');
-
   return (
     <Router>
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Register />} /> 
-        <Route path="*" element={<NotFound />} />  {/* Handle 404 Not Found */}
+      
+        <Route path="/register" element={
+          <PublicRoute>
+            <Register />                         {/* Public routes */}
+          </PublicRoute>
+        } />
+        <Route path="/login" element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        } />
+
+     
+        <Route path="/dashboard" element={
+          <PrivateRoute>
+            <Dashboard />                         {/* Private routes */}
+          </PrivateRoute>
+        } />
+
+        <Route path="/" element={<Register />} /> {/*Default page */}
+
+        <Route path="*" element={<NotFound />} />  {/* 404 page */}
       </Routes>
     </Router>
   );

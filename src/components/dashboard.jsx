@@ -1,26 +1,26 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getFromLocalStorage, removeFromLocalStorage } from '../utils/Helper';
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');   // Check if the user is logged in
-    if (isLoggedIn !== 'true') {
-      // If not logged in, redirect to login
-      navigate('/login');
-    }
-  }, [navigate]);
+//   useEffect(() => {
+//     if (!isLoggedIn()) {
+     
+//       navigate('/login');
+//     }
+//   }, [navigate]);
+
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');   // Clear only the login session flag
+    removeFromLocalStorage('isLoggedIn');   
 
-    // Redirect to the login page
-    navigate('/login');
+    navigate('/login');  
+  
   };
 
-  // Retrieve the user's email for display
-  const email = localStorage.getItem('userEmail');
+  const email = getFromLocalStorage('userEmail');
   const firstName = email ? email.split('@')[0] : 'User';
 
   return (

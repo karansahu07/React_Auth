@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setInLocalStorage } from '../utils/Helper';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -17,8 +18,8 @@ const Register = () => {
     }
 
     // Store email and password in localStorage
-    localStorage.setItem('userEmail', email);
-    localStorage.setItem('userPassword', password);
+    setInLocalStorage('userEmail', email);
+    setInLocalStorage('userPassword', password);
 
     // Navigate to login page after registration
     navigate('/login');
