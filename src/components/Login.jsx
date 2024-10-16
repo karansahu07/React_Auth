@@ -2,22 +2,28 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginError, setLoginError] = useState('');
+  // Single state object for form fields and errors
+  const [formState, setFormState] = useState({
+    email: '',
+    password: '',
+    loginError: '',
+  });
+
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Get stored credentials from localStorage using consistent keys
+    const { email, password } = formState;
+
+    // Get stored credentials from localStorage
     const storedEmail = localStorage.getItem('userEmail');
     const storedPassword = localStorage.getItem('userPassword');
 
     // Check if entered email and password match the stored values
     if (email === storedEmail && password === storedPassword) {
       console.log('Login successful!');
-      setLoginError('');
+      setFormState({ ...formState, loginError: '' });
 
       // Set a flag to indicate the user is logged in
       localStorage.setItem('isLoggedIn', 'true');
@@ -25,9 +31,18 @@ const Login = () => {
       // Navigate to the dashboard upon successful login
       navigate('/dashboard');
     } else {
-      setLoginError('Invalid email or password');
+      // Update the formState with the error message
+      setFormState({ ...formState, loginError: 'Invalid email or password' });
     }
   };
+
+  // Handle input changes for email and password
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({ ...formState, [name]: value });
+  };
+
+  const { email, password, loginError } = formState;
 
   return (
     <div style={styles.container}>
@@ -39,8 +54,9 @@ const Login = () => {
           <input
             type="email"
             id="email"
+            name="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
             style={styles.input}
             required
           />
@@ -51,8 +67,9 @@ const Login = () => {
           <input
             type="password"
             id="password"
+            name="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             style={styles.input}
             required
           />
