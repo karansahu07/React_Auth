@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { getFromLocalStorage, setInLocalStorage } from '../utils/Helper';
+import { getFromLocalStorage, setInLocalStorage } from '../utils/helper';
 
 const Login = () => {
   // Single state object for form fields and errors

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setInLocalStorage } from '../utils/Helper';
+import { setInLocalStorage } from '../utils/helper';
 
 const Register = () => {
   const [email, setEmail] = useState('');

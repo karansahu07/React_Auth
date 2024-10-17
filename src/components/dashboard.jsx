@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getFromLocalStorage, removeFromLocalStorage } from '../utils/Helper';
+import { getFromLocalStorage, removeFromLocalStorage } from '../utils/helper';
 
 const Dashboard = () => {
   const navigate = useNavigate();
