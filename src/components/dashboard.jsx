@@ -1,31 +1,60 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getFromLocalStorage, removeFromLocalStorage } from '../utils/helper';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
 
-//   useEffect(() => {
-//     if (!isLoggedIn()) {
-     
-//       navigate('/login');
-//     }
-//   }, [navigate]);
+  useEffect(() => {
+    const email = getFromLocalStorage('userEmail');
+    const name = getFromLocalStorage('userName');
+    const username = getFromLocalStorage('userUsername');
+    const phonenumber = getFromLocalStorage('userPhoneNumber');
+    const gender = getFromLocalStorage('userGender');
+    const address = getFromLocalStorage('userAddress');
+    const pincode = getFromLocalStorage('userPincode');
+    const country = getFromLocalStorage('userCountry');
+    const skill = getFromLocalStorage('userSkill');
 
+    if (!email) {
+      navigate('/login');
+    } else {
+      setUserData({
+        email,
+        name,
+        username,
+        phonenumber,
+        gender,
+        address,
+        pincode,
+        country,
+        skill,
+      });
+    }
+  }, [navigate]);
 
   const handleLogout = () => {
-    removeFromLocalStorage('isLoggedIn');   
-
-    navigate('/login');  
-  
+    removeFromLocalStorage('isLoggedIn');
+    navigate('/login');
   };
 
-  const email = getFromLocalStorage('userEmail');
-  const firstName = email ? email.split('@')[0] : 'User';
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div style={styles.container}>
-      <h1>Welcome, {firstName}!</h1>
+      <h1>Welcome, {userData.name || 'User'}!</h1>
+      <p><strong>Email:</strong> {userData.email}</p>
+      <p><strong>Username:</strong> {userData.username}</p>
+      <p><strong>Phone Number:</strong> {userData.phonenumber}</p>
+      <p><strong>Gender:</strong> {userData.gender}</p>
+      <p><strong>Address:</strong> {userData.address}</p>
+      <p><strong>Pincode:</strong> {userData.pincode}</p>
+      <p><strong>Country:</strong> {userData.country}</p>
+      <p><strong>Skills:</strong> {userData.skill}</p>
+      
       <button onClick={handleLogout} style={styles.logoutButton}>
         Logout
       </button>
@@ -54,6 +83,5 @@ const styles = {
     fontSize: '16px',
   },
 };
-
 
 export default Dashboard;

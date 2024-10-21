@@ -1,59 +1,42 @@
 import { useState } from 'react';
-import { useEffect } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import { getFromLocalStorage, setInLocalStorage } from '../utils/helper';
+import { getFromLocalStorage } from '../utils/helper';
 
 const Login = () => {
-  // Single state object for form fields and errors
   const [formState, setFormState] = useState({
-    email: '',
+    username: '',
     password: '',
     loginError: '',
   });
-
-  // useEffect(() => {
-  //   const isLoggedIn = localStorage.getItem('isLoggedIn');   // Check if the user is logged in
-  //   if (isLoggedIn === 'true') {
-  //     // If not logged in, redirect to login
-  //     navigate('/dashboard');
-  //   }
-  // }, [navigate]);
 
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const { email, password } = formState;
+    const { username, password } = formState;
 
-    // Get stored credentials from localStorage
-    const storedEmail = getFromLocalStorage('userEmail');
+    const storedUsername = getFromLocalStorage('userName');       // Get stored credentials from localStorage
     const storedPassword = getFromLocalStorage('userPassword');
 
-    // Check if entered email and password match the stored values
-    if (email === storedEmail && password === storedPassword) {
+    if (username === storedUsername && password === storedPassword) {   //check username and password matched or not
       console.log('Login successful!');
       setFormState({ ...formState, loginError: '' });
 
-      // Set a flag to indicate the user is logged in
-      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('isLoggedIn', 'true');        // Set a flag to indicate the user is logged in
 
-      
-      navigate('/dashboard');  // Navigate to the dashboard upon successful login
+      navigate('/dashboard');  //navigate to dashboard
     } else {
-      // Update the formState with the error message
-      setFormState({ ...formState, loginError: 'Invalid email or password' });
+      setFormState({ ...formState, loginError: 'Invalid username or password' });
     }
   };
 
-  // Handle input changes for email and password
-  const handleChange = (e) => {
+  const handleChange = (e) => {       // Set a flag to indicate the user is logged in
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
 
-  const { email, password, loginError } = formState;
+  const { username, password, loginError } = formState;
 
   return (
     <div style={styles.container}>
@@ -61,12 +44,12 @@ const Login = () => {
         <h2 style={styles.title}>Login</h2>
 
         <div style={styles.inputGroup}>
-          <label style={styles.label} htmlFor="email">Email:</label>
+          <label style={styles.label} htmlFor="username">Username:</label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
+            type="text"
+            id="username"
+            name="username"
+            value={username}
             onChange={handleChange}
             style={styles.input}
             required
