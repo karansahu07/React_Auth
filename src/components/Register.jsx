@@ -20,7 +20,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   // Simulated existing usernames (In real implementation, fetch this data from a server or database)
-  const existingUsernames = ['john_doe', 'jane_smith', 'user123'];
+  const existingUsernames = [];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -89,8 +89,8 @@ const Register = () => {
     setInLocalStorage('userSkill', formState.skill);
     setInLocalStorage('isLoggedIn', 'true'); // Setting user as logged in
 
-    // Navigate to the dashboard page after registration
-    navigate('/dashboard');
+    
+    navigate('/dashboard');  // Navigate to the dashboard page after registration
   };
 
   return (
