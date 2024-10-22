@@ -47,10 +47,13 @@ const Register = () => {
       newErrors.username = 'Username already exists. Please choose a different one.';
     }
 
-     // Phone number validation (10 digits and numeric only)
+  // Phone number validation (10 digits and numeric only)
   const phonePattern = /^\d{10}$/;
   if (!phonePattern.test(formState.phonenumber)) {
     newErrors.phonenumber = 'Phone number must be exactly 10 digits and contain only numbers.';
+  }
+  else{
+    console.log(formState.phonenumber);
   }
 
   // Pincode validation (6 digits and numeric only)
@@ -150,7 +153,11 @@ const Register = () => {
             onChange={handleInputChange}
             style={styles.input}
             required
+            maxLength="10"  
+            pattern="\d{10}"  
+            inputMode="numeric"  
           />
+
           {errors.phonenumber && <span style={styles.error}>{errors.phonenumber}</span>}
         </div>
 
@@ -194,6 +201,9 @@ const Register = () => {
             onChange={handleInputChange}
             style={styles.input}
             required
+            maxLength="6"  
+            pattern="\d{6}"  
+            inputMode="numeric" 
           />
           {errors.pincode && <span style={styles.error}>{errors.pincode}</span>}
         </div>
