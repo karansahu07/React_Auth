@@ -1,4 +1,4 @@
-# ReactAuth_App is a project focused on implementing authentication in a React application. This project mainly involves setting up user sign-up and login forms, as well as enabling the authentication process through backend integration. Additionally, this project emphasizes protecting routes for authorized users.
+ReactAuth_App is a project focused on implementing authentication in a React application. This project mainly involves setting up user sign-up and login forms, as well as enabling the authentication process through backend integration. Additionally, this project emphasizes protecting routes for authorized users.
 
 This project include the following:
 
